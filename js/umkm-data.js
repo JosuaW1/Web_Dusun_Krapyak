@@ -42,13 +42,13 @@ const umkmData = [
     },
     {
         id: 5,
-        nama: "Kranting Jati",
-        pemilik: "Bapak Mardianto",
-        jenis: "Kerajinan",
-        jamOperasional: "-",
-        deskripsi: "Pengusaha Kranting jati ini membuat beberapa kerajinan seperti kursi, meja dan rak. Akan tetapi bahan utama yang digunakan bukan dari bahan dasar jati melainkan hanya kayu biasa yang juga memiliki kualitas yang bagus.",
-        kontak: "085640513672",
-        lokasi: "https://maps.google.com/maps?q=RW+08,+Ds.+Krapyak,+Merbung+Klaten+Selatan"
+        nama: "Toko Ibu Suminah",
+        pemilik: "Bu Suminah",
+        jenis: "Toko Kelontong",
+        jamOperasional: "05.00 - 22.00",
+        deskripsi: "Toko Ibu Minah merupakan toko kelontong yang menjual berbagai camilan, beberapa kebutuhan pokok harian, produk kebersihan & kebutuhan rumah tangga seperti shampoo, sabun, deterjen, pewangi dll.",
+        kontak: "085747382177",
+        lokasi: "https://maps.app.goo.gl/1h8K55VU5Aoctq5x7?g_st=com.google.maps.preview.copy"
     },
     {
         id: 6,
