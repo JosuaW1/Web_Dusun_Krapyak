@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dusun Krapyak - Program KKN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation">
+        <div class="container">
+            <!-- Brand -->
+            <div class="navbar-brand">
+                <a href="#home" class="navbar-brand-link">
+                    <span class="navbar-brand-text">Dusun Krapyak</span>
+                </a>
+            </div>
+
+            <!-- Burger Button -->
+            <button class="navbar-burger" id="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Desktop Menu -->
+            <div class="navbar-menu" id="navbar-menu">
+                <a href="#home" class="navbar-item">Beranda</a>
+                <a href="#profil" class="navbar-item">Profil</a>
+                <a href="#umkm" class="navbar-item">UMKM</a>
+                <a href="#peta" class="navbar-item">Peta</a>
+                <a href="#kontak" class="navbar-item">Kontak</a>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="navbar-mobile-menu" id="navbar-mobile-menu">
+            <div class="navbar-mobile-content">
+                <a href="#home" class="navbar-mobile-item">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                </a>
+                <a href="#profil" class="navbar-mobile-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Profil</span>
+                </a>
+                <a href="#umkm" class="navbar-mobile-item">
+                    <i class="fas fa-store"></i>
+                    <span>UMKM</span>
+                </a>
+                <a href="#peta" class="navbar-mobile-item">
+                    <i class="fas fa-map"></i>
+                    <span>Peta</span>
+                </a>
+                <a href="#kontak" class="navbar-mobile-item">
+                    <i class="fas fa-phone"></i>
+                    <span>Kontak</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero is-fullheight hero-image">
+        <!-- Floating particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="columns is-vcentered">
+                    <div class="column">
+                        <div class="hero-content">
+                            <h1 class="title is-1 has-text-white">
+                                Selamat Datang di Dusun Krapyak
+                            </h1>
+                            <h2 class="subtitle is-4 has-text-white">
+                                Dusun yang Berkembang, Masyarakat yang Berdaya
+                            </h2>
+                            <a class="button is-primary is-large" href="#profil">
+                                <span class="icon">
+                                    <i class="fas fa-arrow-down"></i>
+                                </span>
+                                <span>Jelajahi Dusun Kami</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profil Section -->
+    <section id="profil" class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6 fade-in-left animate-on-scroll">
+                    <h2 class="title is-3 section-title">Sejarah Singkat</h2>
+                    <div class="content">
+                        <p class="history-text">
+                            <span class="highlight-text">Dusun Krapyak</span> memiliki akar sejarah yang dalam sebagai
+                            bagian integral dari wilayah <em>Desa Merbung, Klaten Selatan</em>. Kawasan ini terkenal
+                            dengan keberadaan <strong>Makam Krapyak</strong> yang menjadi situs bersejarah penting,
+                            memiliki keunikan nisan-nisan sepuh dengan <span class="accent-text">aksara Arab dan
+                                Jawa</span> yang menunjukkan proses akulturasi budaya Islam dan Jawa yang harmonis.
+                            Kini, Dusun Krapyak terus berkembang sebagai <span class="modern-text">komunitas
+                                modern</span> yang tetap menjaga nilai-nilai tradisional dan warisan leluhur, dengan
+                            masyarakat yang hidup berdampingan harmonis dalam semangat <strong>toleransi dan gotong
+                                royong</strong> menuju masa depan yang lebih cerah.
+                        </p>
+                    </div>
+                </div>
+                <div class="column is-6 fade-in-right animate-on-scroll">
+                    <h2 class="title is-3 section-title">Video Profil Dusun</h2>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/9xwazD5SyVg" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UMKM Section -->
+    <section id="umkm" class="section has-background-light">
+        <div class="container">
+            <div class="has-text-centered mb-6 animate-on-scroll">
+                <h2 class="title is-3 section-title">UMKM Unggulan</h2>
+                <p class="subtitle is-5">Potensi Ekonomi Kreatif Dusun Krapyak</p>
+            </div>
+
+            <!-- UMKM Bootstrap Carousel -->
+            <div id="umkmCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                <div class="carousel-inner" id="umkm-carousel-inner">
+                    <!-- UMKM slides will be generated here -->
+                </div>
+                <a class="carousel-control-prev" href="javascript:void(0)" role="button"
+                    onclick="prevSlide('umkmCarousel')">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="javascript:void(0)" role="button"
+                    onclick="nextSlide('umkmCarousel')">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+                <ol class="carousel-indicators" id="umkm-indicators">
+                    <!-- Indicators will be generated here -->
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peta WebGIS Administrasi -->
+    <section id="peta" class="section">
+        <div class="container">
+            <div class="has-text-centered mb-6 animate-on-scroll">
+                <h2 class="title is-3 section-title">Peta Administrasi Dusun Krapyak</h2>
+                <p class="subtitle is-5">Peta ini memuat UMKM yang terdapat di Dusun Krapyak</p>
+            </div>
+
+            <div class="columns">
+                <div class="column is-8 fade-in-left animate-on-scroll">
+                    <div class="box">
+                        <iframe src="https://luthfiaryan.github.io/PETA-INTERAKTIF-SEBARAN-UMKM-DUSUN-KRAPYAK/"
+                            id="map-admin" frameborder="0" scrolling="no" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+                <div class="column is-4 fade-in-right animate-on-scroll">
+                    <div class="box">
+                        <h4 class="title is-5">Informasi Wilayah</h4>
+                        <div class="content">
+                            <p>
+                                Peta WebGIS interaktif menampilkan sebaran UMKM dan informasi geografis
+                                Dusun Krapyak.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Peta Titik Tempat Sampah -->
+    <section class="section has-background-light">
+        <div class="container">
+            <div class="has-text-centered mb-6 animate-on-scroll">
+                <h2 class="title is-3 section-title">Peta Titik Tempat Sampah</h2>
+                <p class="subtitle is-5">Lokasi Tempat Sampah Program KKN</p>
+            </div>
+
+            <div class="columns">
+                <div class="column is-8 fade-in-left animate-on-scroll">
+                    <div class="box" style="padding: 0;">
+                        <img src="assets/petasampah.jpg" alt="Peta Lokasi Sampah Dusun Krapyak" class="map-sampah">
+                    </div>
+                </div>
+                <div class="column is-4 fade-in-right animate-on-scroll">
+                    <div class="box">
+                        <h4 class="title is-5">Program Pengelolaan Sampah</h4>
+                        <div class="content">
+                            <p>
+                                Peta ini menunjukkan lokasi tempat sampah yang direncanakan, sedang dikerjakan,
+                                dan telah selesai dalam program KKN pengelolaan sampah.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak Section -->
+    <section id="kontak" class="section">
+        <div class="container">
+            <div class="has-text-centered mb-6 animate-on-scroll">
+                <h2 class="title is-3 section-title">Kontak & Informasi</h2>
+            </div>
+
+            <div class="columns is-centered">
+                <div class="column is-8 scale-in animate-on-scroll">
+                    <div class="box">
+                        <h4 class="title is-4 has-text-centered">Informasi Dusun</h4>
+                        <div class="content">
+                            <p>
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                                <strong>Alamat:</strong> [Alamat lengkap Dusun Krapyak]
+                            </p>
+                            <p>
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                                <strong>Telepon:</strong> -
+                            </p>
+                            <p>
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <strong>Email:</strong> desamerbung.klatenselatan@gmail.com
+                            </p>
+                            <p>
+                                <span class="icon has-text-primary">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <strong>Kepala Dusun:</strong> [Nama Kepala Dusun]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer has-background-dark">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8">
+                    <h5 class="title is-5 has-text-white">Dusun Krapyak</h5>
+                    <p class="has-text-white">Sederhana tapi Berkarya</p>
+                </div>
+                <div class="column is-2">
+                    <h6 class="title is-6 has-text-white">MENU</h6>
+                    <ul class="is-size-7">
+                        <li><a href="#home" class="has-text-white">Beranda</a></li>
+                        <li><a href="#profil" class="has-text-white">Profil</a></li>
+                        <li><a href="#umkm" class="has-text-white">UMKM</a></li>
+                        <li><a href="#peta" class="has-text-white">Peta</a></li>
+                    </ul>
+                </div>
+                <div class="column is-2">
+                    <h6 class="title is-6 has-text-white">KONTAK</h6>
+                    <ul class="is-size-7">
+                        <li><a href="#kontak" class="has-text-white">Informasi Dusun</a></li>
+                    </ul>
+                    <div class="mt-3">
+                        <a href="#" class="has-text-white">
+                            <span class="icon is-medium">
+                                <i class="fab fa-instagram fa-lg"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="has-text-centered">
+                <p class="has-text-white is-size-7">© 2025 Dusun Krapyak - Program KKN. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="button is-primary back-to-top" id="back-to-top" onclick="scrollToTop()">
+        <span class="icon">
+            <i class="fas fa-arrow-up"></i>
+        </span>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Data files must load first -->
+    <script src="js/umkm-data.js"></script>
+
+    <!-- Essential JavaScript Files -->
+    <script src="js/simple-navbar.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/umkm-bootstrap-renderer.js"></script>
+    <script src="js/carousel-controls.js"></script>
+</body>
+
+</html>
