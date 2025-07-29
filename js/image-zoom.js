@@ -1,3 +1,4 @@
+// Enhanced Image Zoom with Higher Mobile Zoom Levels
 class ImageZoom {
     constructor(containerId, imageId) {
         this.container = document.getElementById(containerId);
@@ -7,11 +8,14 @@ class ImageZoom {
         this.resetZoomBtn = document.getElementById('resetZoomBtn');
         this.zoomIndicator = document.getElementById('zoomIndicator');
         
-        // Zoom properties
+        // Detect if mobile device
+        this.isMobile = this.detectMobileDevice();
+        
+        // Zoom properties - different for mobile vs desktop
         this.scale = 1;
         this.minScale = 0.5;
-        this.maxScale = 3;
-        this.zoomStep = 0.25;
+        this.maxScale = this.isMobile ? 6 : 3; // 600% for mobile, 300% for desktop
+        this.zoomStep = this.isMobile ? 0.5 : 0.25; // Larger steps for mobile
         
         // Pan properties
         this.translateX = 0;
@@ -35,24 +39,37 @@ class ImageZoom {
         this.init();
     }
     
+    detectMobileDevice() {
+        // Multiple detection methods for better accuracy
+        const userAgent = navigator.userAgent.toLowerCase();
+        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isSmallScreen = window.innerWidth <= 768;
+        
+        // Consider it mobile if it's touch device OR small screen OR mobile user agent
+        return isTouchDevice || isSmallScreen || isMobileUA;
+    }
+    
     init() {
         if (!this.container || !this.image) return;
+        
+        console.log(`Device type: ${this.isMobile ? 'Mobile' : 'Desktop'}, Max zoom: ${this.maxScale * 100}%`);
         
         // Button events
         this.zoomInBtn?.addEventListener('click', () => this.zoomIn());
         this.zoomOutBtn?.addEventListener('click', () => this.zoomOut());
         this.resetZoomBtn?.addEventListener('click', () => this.resetZoom());
         
-        // Mouse wheel zoom
+        // Mouse wheel zoom (primarily for desktop)
         this.container.addEventListener('wheel', (e) => this.handleWheel(e));
         
-        // Mouse drag events
+        // Mouse drag events (primarily for desktop)
         this.container.addEventListener('mousedown', (e) => this.handleMouseDown(e));
         this.container.addEventListener('mousemove', (e) => this.handleMouseMove(e));
         this.container.addEventListener('mouseup', () => this.handleMouseUp());
         this.container.addEventListener('mouseleave', () => this.handleMouseUp());
         
-        // Touch events
+        // Touch events (primarily for mobile)
         this.container.addEventListener('touchstart', (e) => this.handleTouchStart(e), { passive: false });
         this.container.addEventListener('touchmove', (e) => this.handleTouchMove(e), { passive: false });
         this.container.addEventListener('touchend', (e) => this.handleTouchEnd(e));
@@ -65,12 +82,8 @@ class ImageZoom {
         this.updateControls();
         this.createHints();
         this.updateHelpText();
-        this.detectTouchDevice();
-    }
-    
-    detectTouchDevice() {
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        if (isTouchDevice) {
+        
+        if (this.isMobile) {
             this.showTouchHint();
         }
     }
@@ -85,13 +98,21 @@ class ImageZoom {
         // Create touch gesture hint
         const touchHint = document.createElement('div');
         touchHint.className = 'touch-gesture-hint';
-        touchHint.innerHTML = '👆 Sentuh dan geser untuk pan<br>🤏 Pinch untuk zoom';
+        if (this.isMobile) {
+            touchHint.innerHTML = '👆 Sentuh dan geser untuk pan<br>🤏 Pinch untuk zoom (hingga 600%)';
+        } else {
+            touchHint.innerHTML = '👆 Sentuh dan geser untuk pan<br>🤏 Pinch untuk zoom';
+        }
         this.container.appendChild(touchHint);
         
         // Create mobile help text
         const mobileHelp = document.createElement('div');
         mobileHelp.className = 'mobile-help-text';
-        mobileHelp.textContent = '🤏 Pinch zoom • 👆 Drag pan';
+        if (this.isMobile) {
+            mobileHelp.textContent = '🤏 Pinch zoom (600%) • 👆 Drag pan';
+        } else {
+            mobileHelp.textContent = '🤏 Pinch zoom • 👆 Drag pan';
+        }
         this.container.appendChild(mobileHelp);
     }
     
@@ -99,13 +120,17 @@ class ImageZoom {
         this.container.classList.add('show-touch-hint');
         this.touchHintTimeout = setTimeout(() => {
             this.container.classList.remove('show-touch-hint');
-        }, 3000);
+        }, 4000); // Show longer for mobile users
     }
     
     updateHelpText() {
         const helpText = this.container.querySelector('.zoom-help-text');
         if (helpText) {
-            helpText.innerHTML = 'Scroll: zoom<br>Drag: geser peta';
+            if (this.isMobile) {
+                helpText.innerHTML = 'Pinch: zoom hingga 600%<br>Drag: geser peta';
+            } else {
+                helpText.innerHTML = 'Scroll: zoom<br>Drag: geser peta';
+            }
         }
     }
     
@@ -169,12 +194,19 @@ class ImageZoom {
         e.preventDefault();
         
         if (this.isPinching && e.touches.length === 2) {
-            // Handle pinch zoom
+            // Handle pinch zoom with enhanced sensitivity for mobile
             const currentDistance = this.getTouchDistance(e.touches[0], e.touches[1]);
-            const scaleChange = currentDistance / this.initialDistance;
+            let scaleChange = currentDistance / this.initialDistance;
+            
+            // Apply mobile-specific zoom acceleration for better UX
+            if (this.isMobile) {
+                // Make pinch more sensitive on mobile
+                scaleChange = Math.pow(scaleChange, 0.8);
+            }
+            
             const newScale = this.initialScale * scaleChange;
             
-            // Constrain scale
+            // Constrain scale with mobile-friendly max zoom
             this.scale = Math.max(this.minScale, Math.min(this.maxScale, newScale));
             
             // Handle pinch center for natural zoom
@@ -193,20 +225,25 @@ class ImageZoom {
             const offsetX = relativeCenter.x - centerX;
             const offsetY = relativeCenter.y - centerY;
             
-            this.translateX += centerDelta.x - offsetX * (this.scale - this.initialScale) * 0.1;
-            this.translateY += centerDelta.y - offsetY * (this.scale - this.initialScale) * 0.1;
+            // Enhanced pan adjustment for high zoom levels
+            const panSensitivity = this.isMobile ? 0.15 : 0.1;
+            this.translateX += centerDelta.x - offsetX * (this.scale - this.initialScale) * panSensitivity;
+            this.translateY += centerDelta.y - offsetY * (this.scale - this.initialScale) * panSensitivity;
             
             this.lastTouchCenter = currentCenter;
             this.constrainPan();
             this.updateTransform();
             
         } else if (this.isDragging && e.touches.length === 1) {
-            // Handle single touch drag
+            // Handle single touch drag with enhanced sensitivity for high zoom
             const deltaX = e.touches[0].clientX - this.startX;
             const deltaY = e.touches[0].clientY - this.startY;
             
-            this.translateX = this.lastTranslateX + deltaX;
-            this.translateY = this.lastTranslateY + deltaY;
+            // Scale drag sensitivity based on zoom level for better control at high zoom
+            const dragSensitivity = this.isMobile ? Math.min(1.5, this.scale * 0.3) : 1;
+            
+            this.translateX = this.lastTranslateX + (deltaX * dragSensitivity);
+            this.translateY = this.lastTranslateY + (deltaY * dragSensitivity);
             
             this.constrainPan();
             this.updateTransform();
@@ -233,7 +270,7 @@ class ImageZoom {
         }
     }
     
-    // Mouse event handlers (existing)
+    // Mouse event handlers (existing functionality)
     handleMouseDown(e) {
         if (this.scale <= 1) return;
         
