@@ -1057,3 +1057,377 @@ body {
         min-height: 300px;
     }
 }
+
+/* ===== IMAGE ZOOM FUNCTIONALITY ===== */
+.image-zoom-container {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    border-radius: 8px;
+    background: var(--background-light);
+}
+
+.image-zoom-container:active {
+    cursor: grabbing;
+}
+
+.image-zoom-container img {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    max-width: none;
+    height: auto;
+    display: block;
+}
+
+.zoom-controls {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 8px;
+    box-shadow: 0 4px 15px var(--shadow-blue);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.zoom-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 6px;
+    background: var(--secondary-green);
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.zoom-btn:hover {
+    background: var(--secondary-green-dark);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px var(--shadow-green);
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+.zoom-btn:disabled {
+    background: var(--border-color);
+    color: #999;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.zoom-level-indicator {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(30, 90, 150, 0.9);
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px var(--shadow-blue);
+}
+
+.zoom-help-text {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(124, 179, 66, 0.9);
+    color: var(--text-light);
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.image-zoom-container:hover .zoom-help-text {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+        padding: 6px;
+        gap: 6px;
+    }
+    
+    .zoom-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+    
+    .zoom-level-indicator {
+        bottom: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .zoom-help-text {
+        display: none; /* Hide on mobile to save space */
+    }
+}
+
+/* ===== DRAG/PAN FUNCTIONALITY ADDITIONS ===== */
+.image-zoom-container {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    border-radius: 8px;
+    background: var(--background-light);
+    user-select: none; /* Prevent text selection during drag */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.image-zoom-container.dragging {
+    cursor: grabbing;
+}
+
+.image-zoom-container.zoomed {
+    cursor: move;
+}
+
+.image-zoom-container img {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    max-width: none;
+    height: auto;
+    display: block;
+    pointer-events: none; /* Prevent image drag behavior */
+}
+
+/* Disable transition during drag for smooth movement */
+.image-zoom-container.dragging img {
+    transition: none;
+}
+
+/* Visual feedback for draggable state */
+.drag-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 90, 150, 0.8);
+    color: var(--text-light);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 5;
+}
+
+.image-zoom-container.zoomed:hover .drag-hint {
+    opacity: 1;
+}
+
+/* Update help text */
+.zoom-help-text {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: rgba(124, 179, 66, 0.9);
+    color: var(--text-light);
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.image-zoom-container:hover .zoom-help-text {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .drag-hint {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+    }
+    
+    .zoom-help-text {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+    }
+}
+
+/* ===== TOUCH PINCH ZOOM ENHANCEMENTS ===== */
+.image-zoom-container {
+    position: relative;
+    overflow: hidden;
+    cursor: grab;
+    border-radius: 8px;
+    background: var(--background-light);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* Touch-action untuk mencegah default browser zoom/pan */
+    touch-action: none;
+    -webkit-touch-callout: none;
+}
+
+.image-zoom-container.dragging {
+    cursor: grabbing;
+}
+
+.image-zoom-container.zoomed {
+    cursor: move;
+}
+
+.image-zoom-container.pinching {
+    cursor: zoom-in;
+}
+
+.image-zoom-container img {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    max-width: none;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    /* Prevent image dragging on mobile */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+
+/* Disable transition during pinch for smooth movement */
+.image-zoom-container.pinching img {
+    transition: none;
+}
+
+/* Touch gesture hint for mobile */
+.touch-gesture-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 90, 150, 0.8);
+    color: var(--text-light);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 5;
+    text-align: center;
+    line-height: 1.3;
+}
+
+.image-zoom-container.show-touch-hint .touch-gesture-hint {
+    opacity: 1;
+}
+
+/* Mobile-specific help text */
+.mobile-help-text {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(124, 179, 66, 0.9);
+    color: var(--text-light);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.image-zoom-container:hover .mobile-help-text {
+    opacity: 0.9;
+}
+
+/* Show mobile help on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .mobile-help-text {
+        opacity: 0.7;
+    }
+    
+    .zoom-help-text {
+        display: none; /* Hide desktop help on mobile */
+    }
+    
+    .mobile-help-text {
+        display: block;
+    }
+}
+
+/* Hide mobile help on desktop */
+@media (hover: hover) and (pointer: fine) {
+    .mobile-help-text {
+        display: none;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .touch-gesture-hint {
+        font-size: 0.75rem;
+        padding: 10px 16px;
+    }
+    
+    .mobile-help-text {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+        bottom: 10px;
+    }
+    
+    /* Make zoom controls slightly larger on mobile */
+    .zoom-controls {
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    .zoom-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}

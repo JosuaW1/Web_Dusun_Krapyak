@@ -210,7 +210,24 @@
             <div class="columns">
                 <div class="column is-8 fade-in-left animate-on-scroll">
                     <div class="box" style="padding: 0;">
-                        <img src="assets/petasampah.jpg" alt="Peta Lokasi Sampah Dusun Krapyak" class="map-sampah">
+                        <!-- Image Zoom Container -->
+                        <div class="image-zoom-container" id="imageZoomContainer">
+                            <img src="assets/petasampah.jpg" alt="Peta Lokasi Sampah Dusun Krapyak" class="map-sampah"
+                                id="zoomableImage">
+
+                            <!-- Zoom Controls -->
+                            <div class="zoom-controls">
+                                <button class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+                                <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">-</button>
+                                <button class="zoom-btn" id="resetZoomBtn" title="Reset Zoom">⌂</button>
+                            </div>
+
+                            <!-- Zoom Level Indicator -->
+                            <div class="zoom-level-indicator" id="zoomIndicator">100%</div>
+
+                            <!-- Help Text -->
+                            <div class="zoom-help-text">Scroll mouse untuk zoom</div>
+                        </div>
                     </div>
                 </div>
                 <div class="column is-4 fade-in-right animate-on-scroll">
@@ -221,6 +238,30 @@
                                 Peta ini menunjukkan lokasi tempat sampah yang direncanakan, sedang dikerjakan,
                                 dan telah selesai dalam program KKN pengelolaan sampah.
                             </p>
+                            <div class="notification is-info is-light">
+                                <p><strong>Cara menggunakan peta:</strong></p>
+                                <div class="columns is-mobile" style="font-size: 0.9rem;">
+                                    <div class="column is-6">
+                                        <p><strong>💻 Desktop:</strong></p>
+                                        <ul style="margin: 0.3rem 0;">
+                                            <li>🔍 Tombol +/- atau scroll</li>
+                                            <li>👆 Drag untuk geser</li>
+                                            <li>🏠 Reset zoom</li>
+                                        </ul>
+                                    </div>
+                                    <div class="column is-6">
+                                        <p><strong>📱 Mobile:</strong></p>
+                                        <ul style="margin: 0.3rem 0;">
+                                            <li>🤏 Pinch untuk zoom</li>
+                                            <li>👆 Touch drag geser</li>
+                                            <li>🏠 Reset tombol</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="has-text-grey is-size-7" style="margin-top: 0.5rem;">
+                                    💡 <em>Pinch zoom bekerja dengan 2 jari di layar sentuh</em>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -329,6 +370,8 @@
     <script src="js/animations.js"></script>
     <script src="js/umkm-bootstrap-renderer.js"></script>
     <script src="js/carousel-controls.js"></script>
+
+    <script src="js/image-zoom.js"></script>
 </body>
 
 </html>
